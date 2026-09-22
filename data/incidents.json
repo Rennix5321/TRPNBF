@@ -6,7 +6,17 @@
     "user": "Иван Петров",
     "executor": "Алексей Смирнов",
     "priority": 3,
-    "status": "В работе",
+    "status": "Решен",
     "created_at": "2026-09-15T09:00:00"
+  },
+  {
+    "id": 2,
+    "title": "test",
+    "description": "test",
+    "user": "test",
+    "executor": "testtest",
+    "priority": 2,
+    "status": "В работе",
+    "created_at": "2026-09-21T21:29:37"
   }
 ]

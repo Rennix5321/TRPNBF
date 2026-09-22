@@ -1,5 +1,6 @@
 """Функции безопасного ввода."""
 
+
 def input_int(prompt: str, minimum: int | None = None,
               maximum: int | None = None) -> int:
     """Запрашивать целое число до получения допустимого значения."""
