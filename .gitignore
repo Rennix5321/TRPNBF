@@ -4,3 +4,7 @@ __pycache__/
 *.pyc
 
 data/defense.json
+venv/
+db.sqlite3
+.env
+.ruff_cache/
