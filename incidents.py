@@ -34,6 +34,15 @@ def get_incident(incidents: list[Incident], incident_id: int) -> Incident:
     raise KeyError(f"Инцидент с ID {incident_id} не найден")
 
 
+def find_incident_by_id(incidents: list[Incident],
+                        incident_id: int) -> Incident | None:
+    """Вернуть объект для веб-карточки или None, если он отсутствует."""
+    try:
+        return get_incident(incidents, incident_id)
+    except KeyError:
+        return None
+
+
 def find_incidents(incidents: list[Incident], query: str) -> list[Incident]:
     """Найти инциденты по названию или описанию."""
     query = query.casefold().strip()
