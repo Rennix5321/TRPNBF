@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}<h1>Инциденты</h1><p>Источник: исходные объекты из JSON.</p>
+<ul class="list-group">{% for incident in incidents %}
+ {% include 'web_incidents/includes/incident_card.html' %}
+{% empty %}<li class="list-group-item">Инциденты пока отсутствуют.</li>{% endfor %}</ul>
+{% endblock %}

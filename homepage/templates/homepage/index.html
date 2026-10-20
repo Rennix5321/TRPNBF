@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block title %}Главная — учет инцидентов{% endblock %}
+{% block content %}<h1>Система учета инцидентов</h1>
+<p class="lead">Просмотр обращений, исполнителей и статусов.</p>
+<p>Выберите раздел для просмотра данных системы.</p>
+<a href="{% url 'web_incidents:incident_list' %}" class="btn btn-primary">Инциденты</a>
+<a href="{% url 'dashboard:statistics' %}" class="btn btn-secondary">Статистика</a>
+{% endblock %}

@@ -1,0 +1,5 @@
+<li class="list-group-item incident-card">
+ <a href="{% url 'web_incidents:incident_detail' incident.id %}">{{ incident.title|default:"Без названия" }}</a>
+ <span class="badge bg-secondary">{{ incident.status }}</span>
+ <span class="text-muted">{{ incident.priority_name }}</span>
+</li>

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}<article class="card"><div class="card-body">
+<h1>{{ incident.title }}</h1><p>ID: {{ incident.id }}</p>
+<p class="description">{{ incident.description }}</p>
+<p>Автор: {{ incident.user.name }}</p>
+<p>Исполнитель: {{ incident.executor.name|default:"Не назначен" }}</p>
+<p>Приоритет: {{ incident.priority }} — {{ incident.priority_name }}</p>
+<p>Статус: {% if incident.status == 'Закрыт' %}<span class="badge bg-dark">Закрыт</span>{% else %}<span class="badge bg-secondary">{{ incident.status }}</span>{% endif %}</p>
+<p>Дата регистрации: {{ incident.created_at|default:"Не указана" }}</p>
+<a href="{% url 'web_incidents:incident_list' %}">К списку инцидентов</a>
+</div></article>{% endblock %}

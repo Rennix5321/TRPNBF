@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}<h1>Статистика SQLite</h1><p class="lead">Всего инцидентов: {{ total }}</p>
+<div class="row"><section class="col-md-4"><h2>По статусам</h2><ul>{% for item in by_status %}<li>{{ item.status }}: {{ item.total }}</li>{% empty %}<li>Нет данных</li>{% endfor %}</ul></section>
+<section class="col-md-4"><h2>По приоритетам</h2><ul>{% for item in by_priority %}<li>{{ item.priority }}: {{ item.total }}</li>{% empty %}<li>Нет данных</li>{% endfor %}</ul></section>
+<section class="col-md-4"><h2>По авторам</h2><ul>{% for item in by_author %}<li>{{ item.author_name }}: {{ item.total }}</li>{% empty %}<li>Нет данных</li>{% endfor %}</ul></section></div>{% endblock %}

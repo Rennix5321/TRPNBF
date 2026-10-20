@@ -1,0 +1,3 @@
+{% extends 'base.html' %}
+{% block content %}<h1>Инцидент не найден</h1><p>Инцидент с указанным ID отсутствует в системе.</p>
+<a href="{% url 'web_incidents:incident_list' %}">К списку инцидентов</a>{% endblock %}

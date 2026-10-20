@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}<h1>Поиск инцидентов из SQLite</h1>
+<form method="get" class="row g-2 mb-4">
+<div class="col-md-4"><label for="q">По названию</label><input class="form-control" id="q" name="q" value="{{ q }}"></div>
+<div class="col-md-3"><label for="status">Статус</label><select class="form-select" id="status" name="status">
+{% for value in statuses %}<option value="{{ value }}" {% if value == status %}selected{% endif %}>{{ value }}</option>{% endfor %}</select></div>
+<div class="col-md-3"><label for="priority">Приоритет</label><select class="form-select" id="priority" name="priority">
+<option value="">Любой</option>{% for value in '123' %}<option value="{{ value }}" {% if value == priority %}selected{% endif %}>{{ value }}</option>{% endfor %}</select></div>
+<div class="col-md-2 d-flex align-items-end"><button class="btn btn-primary" type="submit">Найти</button></div>
+</form>{% include 'web_incidents/includes/sql_table.html' %}{% endblock %}

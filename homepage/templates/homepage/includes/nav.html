@@ -1,0 +1,9 @@
+{% load static %}
+<nav class="site-nav" aria-label="Основная навигация">
+ <a href="{% url 'homepage:index' %}" class="fw-bold"><img src="{% static 'homepage/img/logo.svg' %}" width="34" height="34" alt="Логотип"> Учет инцидентов</a>
+ <a href="{% url 'web_incidents:incident_list' %}">Инциденты</a>
+ <a href="{% url 'dashboard:statistics' %}">Статистика</a>
+ <a href="{% url 'web_incidents:sql_list' %}">SQLite: список</a>
+ <a href="{% url 'web_incidents:sql_search' %}">SQLite: поиск</a>
+ <a href="{% url 'dashboard:sql_statistics' %}">SQLite: статистика</a>
+</nav>

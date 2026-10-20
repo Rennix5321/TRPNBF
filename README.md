@@ -1,8 +1,7 @@
-# Система учета инцидентов - ПР5
+# Система учета инцидентов 
 
 Учебный проект для регистрации и отслеживания инцидентов: автор обращения,
-описание проблемы, исполнитель, приоритет и статус. ПР5 добавляет базовый
-веб-интерфейс на Django 5.2 к работающей консольной версии ПР3.
+описание проблемы, исполнитель, приоритет и статус. 
 
 ## Запуск в Windows PowerShell
 
@@ -63,8 +62,6 @@ python3 -m venv .venv
 - `data/incidents.json` - данные консольной и веб-версии.
 - `main.py`, `utils.py` - сохраненная консольная версия.
 - `tests/` - проверки ПР3 и HTTP-проверки ПР5.
-- `docs/DEFENSE_PR5.md` - ответы и демонстрация всех 25 пунктов защиты.
-- `docs/PR3.md` - документация предыдущего этапа.
 
 Запрос `/incidents/1/` проходит через `incident_site/urls.py`, затем
 `web_incidents/urls.py`. Конвертер `int` передает `incident_id=1` в
@@ -144,9 +141,62 @@ Remove-Item Env:DJANGO_DEBUG
 .\.venv\Scripts\python.exe manage.py check
 ```
 
-67 тестов: 51 исходный тест ПР3 и 16 HTTP/интеграционных проверок ПР5.
 Веб-тесты проверяют страницы, именованные маршруты, числовой конвертер,
 отсутствующий объект, handler404, DEBUG, ALLOWED_HOSTS, обновление JSON,
 экранирование текста, пустые данные и отсутствие записи при просмотре.
 Тесты работают с временными файлами и не меняют `data/incidents.json`.
+
+
+## ПР6 — шаблоны Django
+
+Веб-представления перенесены на `render()` и Django Templates. Общий каркас —
+`templates/base.html`, страницы находятся в `homepage/templates/homepage/`,
+`web_incidents/templates/web_incidents/`, `dashboard/templates/dashboard/`.
+Используются `extends`, `block`, `include`, `for`/`empty`, `if`, фильтры,
+контекст, пространства имён URL. Файлы CSS, JS и логотип —
+`homepage/static/homepage/`. Прежняя функция `page()` оставлена только ради
+совместимости с историческими тестами; web views ею не пользуются.
+JSON-хранилище и консольная реализация прежних работ сохранены.
+
+## ПР7 — SQLite и SQL (без Django ORM)
+
+Схема — `sql/schema.sql`, 16 учебных SQL-запросов — `sql/queries.sql`,
+подключение — `db/database.py`, перенос данных — `db/import_json.py`.
+База `data/incidents.sqlite` хранит `users`, `executors`, `incidents`.
+В `incidents` определены внешние ключи `user_id` и необязательный
+`executor_id`; в Python включается `PRAGMA foreign_keys = ON`.
+Используются `executemany`, `commit`, `sqlite3.Row`, `?` для параметров.
+
+Для повторного импорта с заменой данных SQLite из JSON:
+
+```bash
+python -m db.import_json
+```
+
+| Адрес | Источник и назначение |
+|---|---|
+| `/` | Главная страница Django |
+| `/incidents/` | Исходные объекты `Incident` из JSON |
+| `/incidents/1/` | Карточка объекта, ID и 404 |
+| `/statistics/` | Исходная статистика по JSON |
+| `/incidents/sql/` | Список из SQLite через `SELECT` и `JOIN` |
+| `/incidents/search/?status=Решен&priority=3` | SQL-поиск по параметрам |
+| `/statistics/sql/` | `COUNT`, `GROUP BY` и `JOIN` из SQLite |
+
+Запуск (в корне проекта):
+
+```bash
+python -m pip install -r requirements.txt
+python -m db.import_json
+python manage.py check
+python manage.py runserver
+pytest -v
+flake8 . --extend-exclude=venv
+```
+
+Запросы БД исполняются через стандартный `sqlite3`, не через ORM.
+После изменения JSON следует повторить импорт, чтобы обновить данные SQLite.
+Скрипт импорта заменяет имеющиеся записи; не запускайте его, если в базе
+есть самостоятельные изменения, которые нужно сохранить.
+
 
