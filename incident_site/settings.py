@@ -44,7 +44,7 @@ TEMPLATES = [{
 }]
 WSGI_APPLICATION = "incident_site.wsgi.application"
 ASGI_APPLICATION = "incident_site.asgi.application"
-# SQLite нужен встроенным приложениям Django, инциденты остаются в JSON.
+# ORM ПР9 использует отдельную целевую базу db.sqlite3; база ПР7 сохранена.
 DATABASES = {"default": {
     "ENGINE": "django.db.backends.sqlite3",
     "NAME": BASE_DIR / "db.sqlite3",

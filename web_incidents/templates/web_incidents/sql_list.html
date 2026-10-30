@@ -1,3 +1,1 @@
-{% extends 'base.html' %}
-{% block content %}<h1>Инциденты из SQLite</h1><p>SQL SELECT + JOIN.</p>
-{% include 'web_incidents/includes/sql_table.html' %}{% endblock %}
+{% extends 'base.html' %}{% block content %}<h1>Инциденты (Django ORM)</h1><p>Чтение из моделей Django с select_related и Paginator.</p>{% include 'web_incidents/includes/sql_table.html' %}{% include 'web_incidents/includes/pagination.html' %}{% endblock %}
